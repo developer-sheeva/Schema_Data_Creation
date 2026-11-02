@@ -1,0 +1,11 @@
+--Full backup of DataBase
+"D:\Program Files\PostgreSQL\18\bin\pg_dump.exe" -h localhost -p 5432 -U postgres -d KhaustanRestaurantMenu -F c -b -v -E UTF8 -f "D:\Sheeva\Khaustan.com\database\KhaustanRestaurantMenu.backup"
+
+
+
+--Create Empty Database
+"D:\Program Files\PostgreSQL\18\bin\createdb.exe" -h localhost -p 5432 -U postgres -E UTF8 -T template0 Khau2
+
+
+--insert Data
+"D:\Program Files\PostgreSQL\18\bin\pg_restore.exe" -h localhost -p 5432 -U postgres -d Khau2 -v --no-owner "D:\Sheeva\Khaustan.com\database\KhaustanRestaurantMenu.backup"
