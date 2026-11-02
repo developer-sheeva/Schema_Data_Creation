@@ -1,0 +1,35 @@
+#Context:
+-attached schema creation sql script
+-attached lookup tables creation sql script
+-attached Canonical table CSV
+-A JSON file for restaurant menu is attached only as an example
+
+#Role: Expert prompt engineer on claude with in depth knowledge of postgres and sql
+
+#Require:
+-modified structured prompt in md format
+
+#Instructions
+-The prompt should create sql script which accepts JSON file 
+-The sql shall insert data into tables of establishment and restaurant in JSON file.
+-the establishment_id and restaurant_Id shall be same, unless there are provided in JSON
+-The JSON file must have PIN code of six digits of establishment
+-sql shall identify last establishment on that PIN, for example if there exists establishment_Id 400070015 and 400070020. But then there is no establishment with starting digits 400070 and last three digits more than 020, then sql should identify the new establishment_Id as 400070021.
+-The establishment_id shall always be of 9 digits
+-The sql should never insert any new record in lookups
+-the sql should never insert new record in canonical_dish
+-sql should use canonical_dish ids from currently provided canonical_dish csv (which shall again be given to structured prompt to help it create accurate insert script) 
+-if for a menu sql could not get canonical_dish, all such menu_items, it shall report at the end of execution
+-if feasible, sql should find nearby names like chi. masala for chicken masala (canonical_dish) and refere it
+-the sql should close all the previously created sequences at the begining of execution
+-the sql should close all the sequences created during execution at the end
+-menu_item (menu_item_id) sequence should start from  <restaurant_Id>001.
+-menu_item_source (menu_item_id) should sequence start from <restaurant_Id>001.
+-menu_item_variant (variant_id) should sequence start from <restaurant_Id>001.
+-menu_item_price (price_id) should sequence start from <restaurant_Id>001.
+-menu_item_availability (availability_id) should sequence start from  <restaurant_Id>001.
+-menu_board_category (restaurant_id) should sequence start from <restaurant_Id>001.
+-menu_board_item (menu_board_item_id) should sequence start from <restaurant_Id>001.
+-menu_category (menu_category_id) should sequence start from <restaurant_Id>001.
+-Map IDs accordingly. Make changes everywhere accordingly. 
+#flag if something is not feasible or need more data
